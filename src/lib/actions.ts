@@ -4,8 +4,8 @@ import { revalidatePath } from "next/cache";
 
 export async function deleteFile(id: string) {
   try {
-    const { success } = await serverClient.deleteFile(id);
-    console.log(success);
+    await serverClient.deleteFile(id);
+
     revalidatePath("/dashboard");
   } catch (error) {
   } finally {
