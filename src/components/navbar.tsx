@@ -2,7 +2,11 @@ import * as React from "react";
 import { MaxWidthWrapper } from "./max-width-wrapper";
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
-import { LoginLink, RegisterLink } from "@kinde-oss/kinde-auth-nextjs/server";
+import {
+  RegisterLink,
+  LoginLink,
+} from "@kinde-oss/kinde-auth-nextjs/components";
+
 import { ArrowRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 
