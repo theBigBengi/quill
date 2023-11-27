@@ -15,7 +15,6 @@ const Page = () => {
       if (success) {
         // user is synced to db
         router.push(`/${origin ?? "dashboard"}`);
-        console.log("{ err }");
       }
     },
     onError: (err) => {

@@ -1,7 +1,14 @@
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { TRPCError } from "@trpc/server";
-import { publicProcedure, router } from "./trpc";
+import { publicProcedure, router, protectedProcedure } from "./trpc";
 import { db } from "@/lib/db";
+import { revalidatePath } from "next/cache";
+import { z } from "zod";
+import { redirect } from "next/navigation";
+
+const delay = (delayInms: number) => {
+  return new Promise((resolve) => setTimeout(resolve, delayInms));
+};
 
 export const appRouter = router({
   hello: publicProcedure.query((opts) => {
@@ -39,6 +46,40 @@ export const appRouter = router({
 
     return { success: true };
   }),
+  //
+  getUserFiles: protectedProcedure.query(async ({ ctx }) => {
+    const files = await db.file.findMany({
+      where: {
+        userId: ctx.userId,
+      },
+    });
+
+    return { data: files };
+  }),
+  //
+  deleteFile: protectedProcedure
+    .input(z.string())
+    .mutation(async ({ ctx, input }) => {
+      const file = await db.file.findFirst({
+        where: {
+          userId: ctx.userId,
+          id: input,
+        },
+      });
+
+      if (!file) {
+        throw new TRPCError({ code: "NOT_FOUND" });
+      }
+
+      await db.file.delete({
+        where: {
+          userId: ctx.userId,
+          id: input,
+        },
+      });
+
+      revalidatePath("/dashboard");
+    }),
 });
 
 // export type definition of API
