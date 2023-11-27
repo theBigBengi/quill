@@ -15,15 +15,16 @@ const Page = () => {
       if (success) {
         // user is synced to db
         router.push(`/${origin ?? "dashboard"}`);
+        console.log("{ err }");
       }
     },
     onError: (err) => {
       if (err.data?.code === "UNAUTHORIZED") {
-        router.push("/sign-in");
+        router.push("/api/auth/login?post_login_redirect_url=/dashboard");
       }
     },
-    retry: true,
-    retryDelay: 500,
+    // retry: true,
+    // retryDelay: 500,
   });
 
   return (

@@ -4,7 +4,10 @@ import { appRouter } from "@/app/server";
 export const serverClient = appRouter.createCaller({
   links: [
     httpBatchLink({
-      url: "https://quill-bengiplayground.vercel.app/api/trpc",
+      url:
+        process.env.NODE_ENV === "production"
+          ? "https://quill-bengiplayground.vercel.app/api/trpc"
+          : "http://localhost:3000/api/trpc",
     }),
   ],
 });
