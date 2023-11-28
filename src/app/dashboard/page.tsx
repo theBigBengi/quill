@@ -8,19 +8,12 @@ import { serverClient } from "../_trpc/serverClient";
 import { FilesList } from "./_components/files-list";
 import { Suspense } from "react";
 import UploadButton from "@/components/upload-button";
-
-function Loading() {
-  return <h2>🌀 Loading...</h2>;
-}
+import { authenticatedUser } from "@/lib/authenticated-user";
 
 export interface PageProps {}
 
 export default async function Page(props: PageProps) {
-  const { getUser } = getKindeServerSession();
-  const user = await getUser();
-
-  if (!user || !user.id)
-    redirect("/api/auth/login?post_login_redirect_url=/dashboard");
+  const user = await authenticatedUser();
 
   const dbUser = await db.user.findFirst({
     where: {
@@ -31,7 +24,7 @@ export default async function Page(props: PageProps) {
   if (!dbUser) redirect("/auth-callback?origin=dashboard");
 
   return (
-    <main className='mx-auto max-w-7xl md:p-10'>
+    <main className='px-4 mx-auto max-w-7xl md:p-10'>
       <div className='mt-8 flex flex-col items-start justify-between gap-4 border-b border-gray-200 pb-5 sm:flex-row sm:items-center sm:gap-0'>
         <h1 className='mb-3 font-bold text-5xl text-gray-900'>My Files</h1>
 

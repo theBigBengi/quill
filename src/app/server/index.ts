@@ -5,10 +5,7 @@ import { db } from "@/lib/db";
 import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { redirect } from "next/navigation";
-
-const delay = (delayInms: number) => {
-  return new Promise((resolve) => setTimeout(resolve, delayInms));
-};
+import { trpc } from "../_trpc/client";
 
 export const appRouter = router({
   hello: publicProcedure.query((opts) => {
@@ -80,6 +77,24 @@ export const appRouter = router({
 
       revalidatePath("/dashboard");
     }),
+  files: router({
+    getFile: protectedProcedure
+      .input(z.string())
+      .mutation(async ({ ctx, input }) => {
+        const file = await db.file.findFirst({
+          where: {
+            userId: ctx.userId,
+            key: input,
+          },
+        });
+
+        if (!file) {
+          throw new TRPCError({ code: "NOT_FOUND" });
+        }
+
+        return file;
+      }),
+  }),
 });
 
 // export type definition of API

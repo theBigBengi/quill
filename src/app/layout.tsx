@@ -4,6 +4,7 @@ import "./globals.css";
 import { cn } from "@/lib/utils";
 import { Navbar } from "@/components/navbar";
 import Providers from "@/components/providers/trpc-provider";
+import { Toaster } from "@/components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -27,6 +28,7 @@ export default function RootLayout({
       >
         <Navbar />
         <Providers>{children}</Providers>
+        <Toaster />
       </body>
     </html>
   );
