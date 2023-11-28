@@ -2,7 +2,11 @@ import { Button } from "@/components/ui/button";
 import { db } from "@/lib/db";
 import { getKindeServerSession } from "@kinde-oss/kinde-auth-nextjs/server";
 import { notFound, redirect } from "next/navigation";
-import { PDFRenderer } from "./_components/pdf-renderer";
+import {
+  ActionsBar,
+  PDFRenderer,
+  PDFDocument,
+} from "./_components/pdf-renderer/pdf-renderer";
 import { ChatWrapper } from "./_components/chat-wrapper";
 
 export interface PageProps {
@@ -30,11 +34,12 @@ export default async function Page({ params: { id } }: PageProps) {
   return (
     <div className='flex-1 justify-between flex flex-col h-[calc(100vh-3.5rem)]'>
       <div className='mx-auto w-full max-w-8xl grow lg:flex xl:px-2'>
-        {/* Left sidebar & main wrapper */}
         <div className='flex-1 xl:flex'>
           <div className='px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6'>
-            {/* Main area */}
-            <PDFRenderer url={file.url} />
+            <PDFRenderer url={file.url}>
+              <ActionsBar />
+              <PDFDocument />
+            </PDFRenderer>
           </div>
         </div>
 

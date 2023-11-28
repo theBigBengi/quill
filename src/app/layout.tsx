@@ -6,6 +6,8 @@ import { Navbar } from "@/components/navbar";
 import Providers from "@/components/providers/trpc-provider";
 import { Toaster } from "@/components/ui/toaster";
 
+import "simplebar-react/dist/simplebar.min.css";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
