@@ -68,17 +68,17 @@ export default function ChatMessages({ fileId }: ChatMessagesProps) {
           if (i === combinedMessages.length - 1) {
             return (
               <Message
-                ref={ref}
-                message={message}
                 isNextMessageSamePerson={isNextMessageSamePerson}
+                message={message}
                 key={message.id}
+                ref={ref}
               />
             );
           } else
             return (
               <Message
-                message={message}
                 isNextMessageSamePerson={isNextMessageSamePerson}
+                message={message}
                 key={message.id}
               />
             );
