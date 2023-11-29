@@ -34,7 +34,7 @@ export function ChatContextProvider({
 
   const backupMessage = useRef("");
 
-  const utils = trpc.useContext();
+  const utils = trpc.useUtils();
 
   // Why i dont use here tRPC ?
   // I want to stream back data from the api
