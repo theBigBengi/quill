@@ -38,7 +38,7 @@ export function PDFDocumentContainer({
 
   const { toast } = useToast();
   const { width, ref } = useResizeDetector();
-
+  console.log(width);
   const handleLoadingError = () => {
     toast({
       title: "Error loading PDF",

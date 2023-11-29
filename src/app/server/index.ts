@@ -6,6 +6,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { redirect } from "next/navigation";
 import { trpc } from "../_trpc/client";
+import { INFINITE_QUERY_LIMIT } from "@/config/infinite-query";
 
 export const appRouter = router({
   hello: publicProcedure.query((opts) => {
@@ -112,6 +113,55 @@ export const appRouter = router({
         }
 
         return file;
+      }),
+    getFileMessages: protectedProcedure
+      .input(
+        z.object({
+          limit: z.number().min(1).max(100).nullish(),
+          cursor: z.string().nullish(),
+          fileId: z.string(),
+        })
+      )
+      .query(async ({ ctx, input }) => {
+        const limit = input.limit ?? INFINITE_QUERY_LIMIT;
+
+        const file = await db.file.findFirst({
+          where: {
+            id: input.fileId,
+            userId: ctx.userId,
+          },
+        });
+
+        if (!file) throw new TRPCError({ code: "NOT_FOUND" });
+
+        const messages = await db.message.findMany({
+          where: {
+            userId: ctx.userId,
+            fileId: input.fileId,
+          },
+          orderBy: {
+            createdAt: "desc",
+          },
+          take: limit + 1,
+          cursor: input.cursor ? { id: input.cursor } : undefined,
+          select: {
+            id: true,
+            isUserMessage: true,
+            createdAt: true,
+            text: true,
+          },
+        });
+
+        let nextCursor: typeof input.cursor | undefined = undefined;
+        if (messages.length > limit) {
+          const nextItem = messages.pop();
+          nextCursor = nextItem?.id;
+        }
+
+        return {
+          messages,
+          nextCursor,
+        };
       }),
   }),
 });

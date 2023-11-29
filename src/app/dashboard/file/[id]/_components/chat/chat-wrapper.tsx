@@ -6,6 +6,7 @@ import Link from "next/link";
 import ChatInput from "./chat-input";
 import { buttonVariants } from "@/components/ui/button";
 import ChatMessages from "./chat-messages";
+import { ChatContextProvider } from "./chat-context-provider";
 // import { ChatContextProvider } from './ChatContext'
 // import { PLANS } from '@/config/stripe'
 
@@ -90,13 +91,15 @@ const ChatWrapper = ({ fileId }: ChatWrapperProps) => {
     );
 
   return (
-    <div className='relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2'>
-      <div className='flex-1 justify-between flex flex-col mb-28'>
-        <ChatMessages />
-      </div>
+    <ChatContextProvider fileId={fileId}>
+      <div className='relative min-h-full bg-zinc-50 flex divide-y divide-zinc-200 flex-col justify-between gap-2'>
+        <div className='flex-1 justify-between flex flex-col mb-28'>
+          <ChatMessages fileId={fileId} />
+        </div>
 
-      <ChatInput />
-    </div>
+        <ChatInput />
+      </div>
+    </ChatContextProvider>
   );
 };
 
