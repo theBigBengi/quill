@@ -41,13 +41,18 @@ export function ChatContextProvider({
   // and in tRPC there is no way to do it in a good way (accept JSON)
   const { mutate: sendMessage } = useMutation({
     mutationFn: async ({ message }: { message: string }) => {
-      const response = await fetch("http://localhost:3000/api/messages", {
-        method: "POST",
-        body: JSON.stringify({
-          fileId,
-          message,
-        }),
-      });
+      const response = await fetch(
+        process.env.NODE_ENV === "production"
+          ? "https://quill-bengiplayground.vercel.app/api/messages"
+          : "http://localhost:3000/api/messages",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            fileId,
+            message,
+          }),
+        }
+      );
 
       if (!response.ok) {
         throw new Error("Failed to send message");
