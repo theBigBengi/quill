@@ -7,7 +7,11 @@ import {
   PDFRenderer,
   PDFDocument,
 } from "./_components/pdf-renderer/pdf-renderer";
-import { ChatWrapper } from "./_components/chat-wrapper";
+import ChatWrapper from "./_components/chat/chat-wrapper";
+import {
+  PDFDocumentContainer,
+  PDFPage,
+} from "./_components/pdf-renderer/pdf-document";
 
 export interface PageProps {
   params: {
@@ -38,7 +42,9 @@ export default async function Page({ params: { id } }: PageProps) {
           <div className='px-4 py-6 sm:px-6 lg:pl-8 xl:flex-1 xl:pl-6'>
             <PDFRenderer url={file.url}>
               <ActionsBar />
-              <PDFDocument />
+              <PDFDocumentContainer>
+                <PDFPage />
+              </PDFDocumentContainer>
             </PDFRenderer>
           </div>
         </div>

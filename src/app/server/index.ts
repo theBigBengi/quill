@@ -94,6 +94,25 @@ export const appRouter = router({
 
         return file;
       }),
+    getFileUploadStatus: protectedProcedure
+      .input(z.string())
+      .query(async ({ ctx, input }) => {
+        const file = await db.file.findFirst({
+          where: {
+            userId: ctx.userId,
+            id: input,
+          },
+          select: {
+            uploadStatus: true,
+          },
+        });
+
+        if (!file) {
+          throw new TRPCError({ code: "NOT_FOUND" });
+        }
+
+        return file;
+      }),
   }),
 });
 

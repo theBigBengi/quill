@@ -20,7 +20,7 @@ export async function Navbar(props: NavbarProps) {
 
   return (
     <nav className='sticky  inset-x-0 top-0 z-30 w-full border-b border-gray-200 bg-white/75 backdrop-blur-lg transition-all'>
-      <MaxWidthWrapper className='px-4 md:px-10 '>
+      <MaxWidthWrapper className='px-4 md:px-10 lg:max-w-full'>
         <div className='flex h-14 items-center justify-between border-b border-zinc-200'>
           <Link href='/' className='flex z-40 font-bold text-zinc-900 text-lg'>
             <span>quill.</span>

@@ -30,6 +30,9 @@ type PDFRendererContextProps = {
   setScale: Dispatch<SetStateAction<number>>;
   rotation: number;
   setRotation: Dispatch<SetStateAction<number>>;
+  renderedScale: number | null;
+  setRenderedScale: Dispatch<SetStateAction<number | null>>;
+  isLoading: boolean;
 };
 
 export const PDFRendererContext = createContext<PDFRendererContextProps>(
@@ -41,6 +44,9 @@ function PDFRenderer({ url, children }: PDFRendererProps) {
   const [currPage, setCurrPage] = useState(1);
   const [scale, setScale] = useState<number>(1);
   const [rotation, setRotation] = useState<number>(0);
+  const [renderedScale, setRenderedScale] = useState<number | null>(null);
+
+  const isLoading = renderedScale !== scale;
 
   return (
     <PDFRendererContext.Provider
@@ -54,6 +60,9 @@ function PDFRenderer({ url, children }: PDFRendererProps) {
         currPage,
         setCurrPage,
         url,
+        setRenderedScale,
+        isLoading,
+        renderedScale,
       }}
     >
       <div className='w-full bg-white rounded-md shadow flex flex-col items-center'>
