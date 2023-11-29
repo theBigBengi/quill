@@ -107,7 +107,7 @@ export function ActionsBar() {
   };
 
   const handleRotation = () => {
-    setRotation((prev) => prev + 90);
+    setRotation((prev) => (prev === 270 ? 0 : prev + 90));
   };
 
   const handleScaling = (value: string) => {

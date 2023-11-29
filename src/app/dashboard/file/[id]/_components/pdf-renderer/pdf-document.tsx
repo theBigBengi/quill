@@ -78,8 +78,6 @@ export function PDFPage({ width }: { width?: number }) {
     isLoading,
   } = useContext(PDFRendererContext);
 
-  console.log(width);
-
   if (isLoading && renderedScale) {
     return (
       <Page
