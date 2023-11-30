@@ -1,4 +1,4 @@
-export const maxDuration = 30;
+export const maxDuration = 300;
 
 import { authenticatedUser } from "@/lib/authenticated-user";
 import { db } from "@/lib/db";
