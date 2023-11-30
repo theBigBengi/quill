@@ -1,3 +1,5 @@
+export const maxDuration = 30;
+
 import { authenticatedUser } from "@/lib/authenticated-user";
 import { db } from "@/lib/db";
 import { openai } from "@/lib/openai";
@@ -7,8 +9,6 @@ import { OpenAIEmbeddings } from "langchain/embeddings/openai";
 import { PineconeStore } from "langchain/vectorstores/pinecone";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import { NextRequest, NextResponse } from "next/server";
-
-export const runtime = "edge"; // 'nodejs' is the default
 
 export const POST = async (req: NextRequest) => {
   const user = await authenticatedUser();
