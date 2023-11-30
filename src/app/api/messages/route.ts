@@ -8,6 +8,8 @@ import { PineconeStore } from "langchain/vectorstores/pinecone";
 import { OpenAIStream, StreamingTextResponse } from "ai";
 import { NextRequest, NextResponse } from "next/server";
 
+export const runtime = "edge"; // 'nodejs' is the default
+
 export const POST = async (req: NextRequest) => {
   const user = await authenticatedUser();
 
