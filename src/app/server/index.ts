@@ -6,7 +6,7 @@ import { revalidatePath } from "next/cache";
 import { z } from "zod";
 import { redirect } from "next/navigation";
 import { trpc } from "../_trpc/client";
-import { INFINITE_QUERY_LIMIT } from "@/config/infinite-query";
+import { INFINITE_QUERY_LIMIT } from "@/config/infinte-query";
 
 export const appRouter = router({
   hello: publicProcedure.query((opts) => {

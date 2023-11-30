@@ -1,7 +1,7 @@
 import { Loader2, MessageSquare } from "lucide-react";
 import * as React from "react";
 import { ChatContext } from "./chat-context-provider";
-import { INFINITE_QUERY_LIMIT } from "@/config/infinite-query";
+import { INFINITE_QUERY_LIMIT } from "@/config/infinte-query";
 import { trpc } from "@/app/_trpc/client";
 import { Skeleton } from "@/components/ui/skeleton";
 import { useIntersection } from "@mantine/hooks";
