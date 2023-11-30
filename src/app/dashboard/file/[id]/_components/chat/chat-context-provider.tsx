@@ -43,7 +43,7 @@ export function ChatContextProvider({
     mutationFn: async ({ message }: { message: string }) => {
       const response = await fetch(
         process.env.NODE_ENV === "production"
-          ? "https://quill-bengiplayground.vercel.app/api/messages"
+          ? "https://quill-lake.vercel.app/api/messages"
           : "http://localhost:3000/api/messages",
         {
           method: "POST",

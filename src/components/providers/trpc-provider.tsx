@@ -13,7 +13,7 @@ const Providers = ({ children }: PropsWithChildren) => {
         httpBatchLink({
           url:
             process.env.NODE_ENV === "production"
-              ? "https://quill-bengiplayground.vercel.app/api/trpc"
+              ? "https://quill-lake.vercel.app/api/trpc"
               : "http://localhost:3000/api/trpc",
         }),
       ],
